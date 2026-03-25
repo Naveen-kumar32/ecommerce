@@ -1,24 +1,16 @@
 import * as Yup from "yup";
 
-export const loginSchema = Yup.object({
-  email: Yup.string()
-    .email("Enter valid email")
-    .required("Email is required"),
+export const createLoginSchema = (v) =>
+  Yup.object({
+    email: Yup.string()
+      .email(v.EMAIL_INVALID)
+      .required(v.EMAIL_REQUIRED),
 
-  password: Yup.string()
-    .min(8, "Minimum 8 characters")
-    .matches(
-      /[A-Z]/,
-      "Must contain at least one uppercase letter"
-    )
-    .matches(
-      /[a-z]/,
-      "Must contain at least one lowercase letter"
-    )
-    .matches(/\d/, "Must contain a number")
-    .matches(
-      /[@$!%*?&]/,
-      "Must contain a special character"
-    )
-    .required("Password is required"),
-});
+    password: Yup.string()
+      .min(8, v.PASSWORD_MIN)
+      .matches(/[A-Z]/, v.PASSWORD_UPPERCASE)
+      .matches(/[a-z]/, v.PASSWORD_LOWERCASE)
+      .matches(/\d/, v.PASSWORD_NUMBER)
+      .matches(/[@$!%*?&]/, v.PASSWORD_SPECIAL)
+      .required(v.PASSWORD_REQUIRED),
+  });
