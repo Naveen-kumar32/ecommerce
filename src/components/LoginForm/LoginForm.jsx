@@ -11,6 +11,7 @@ import { createLoginSchema } from "../../validators/loginSchema";
 
 // Constants / Locales
 import en from "../../locales/en";
+import ROUTES from "../../locales/routes";
 
 const LoginForm = ({ onSubmit, loading, strings }) => {
   const formik = useFormik({
@@ -58,7 +59,7 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
 
       <p>
         {strings.REDIRECT_TEXT}{" "}
-        <Link to={en.ROUTES.REGISTER}>{strings.REDIRECT_LINK}</Link>
+        <Link to={ROUTES.REGISTER}>{strings.REDIRECT_LINK}</Link>
       </p>
     </form>
   );

@@ -1,18 +1,47 @@
 // Third-party
+import { useState } from "react";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Components
 import FormInput from "../FormInput/FormInput";
 import FormButton from "../FormButton/FormButton";
+
+// API
+import { registerApi } from "../../api/authApi";
+
+// Utils
+import { showSuccess } from "../../utils/successToast";
+import { showError } from "../../utils/errorToast";
 
 // Validators
 import { createRegisterSchema } from "../../validators/registerSchema";
 
 // Constants / Locales
 import en from "../../locales/en";
+import ROUTES from "../../locales/routes";
 
-const RegisterForm = ({ onSubmit, loading, strings }) => {
+const RegisterForm = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleRegister = async (values) => {
+    setLoading(true);
+    try {
+      await registerApi(values);
+      showSuccess(en.REGISTER.SUCCESS_MESSAGE);
+      setTimeout(() => {
+        navigate(ROUTES.LOGIN);
+      }, 1000);
+    } catch (err) {
+      showError(err?.message ?? en.REGISTER.ERROR_FALLBACK);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const strings = en.REGISTER;
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -21,9 +50,7 @@ const RegisterForm = ({ onSubmit, loading, strings }) => {
       confirmPassword: "",
     },
     validationSchema: createRegisterSchema(en.VALIDATION),
-    onSubmit: (values) => {
-      onSubmit(values);
-    },
+    onSubmit: handleRegister,
   });
 
   return (
@@ -80,7 +107,7 @@ const RegisterForm = ({ onSubmit, loading, strings }) => {
 
       <p>
         {strings.REDIRECT_TEXT}{" "}
-        <Link to={en.ROUTES.LOGIN}>{strings.REDIRECT_LINK}</Link>
+        <Link to={ROUTES.LOGIN}>{strings.REDIRECT_LINK}</Link>
       </p>
     </form>
   );

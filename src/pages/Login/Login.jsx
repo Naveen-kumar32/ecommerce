@@ -14,6 +14,7 @@ import { showError } from "../../utils/errorToast";
 
 // Constants / Locales
 import en from "../../locales/en";
+import ROUTES from "../../locales/routes";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ const Login = () => {
       showSuccess(en.LOGIN.SUCCESS_MESSAGE);
 
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate(ROUTES.DASHBOARD);
       }, 1000);
     } catch (err) {
       showError(err?.message ?? en.LOGIN.ERROR_FALLBACK);
