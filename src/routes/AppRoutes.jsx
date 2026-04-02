@@ -2,12 +2,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Pages
-import Login from "../pages/Login/Login";
-import Register from "../pages/Register/Register";
-import Dashboard from "../pages/Dashboard/Dashboard";
+import { Login, Register, Dashboard } from "../pages";
 
 // Constants / Locales
-import en from "../locales/en";
 import ROUTES from "../locales/routes";
 
 const AppRoutes = () => {
@@ -16,7 +13,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path={ROUTES.LOGIN} element={<Login />} />
         <Route path={ROUTES.REGISTER} element={<Register />} />
-        <Route path={ROUTES.DASHBOARD} element={<Dashboard strings={en.DASHBOARD} />} />
+        <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );

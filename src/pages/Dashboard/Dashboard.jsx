@@ -1,7 +1,10 @@
-const Dashboard = ({ strings }) => {
+// Constants / Locales
+import en from "../../locales/en";
+
+const Dashboard = () => {
   return (
     <div>
-      <h1>{strings.WELCOME}</h1>
+      <h1>{en.DASHBOARD.WELCOME}</h1>
     </div>
   );
 };

@@ -4,8 +4,7 @@ import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 
 // Components
-import FormInput from "../FormInput/FormInput";
-import FormButton from "../FormButton/FormButton";
+import { FormInput, FormButton } from "../index";
 
 // API
 import { registerApi } from "../../api/authApi";

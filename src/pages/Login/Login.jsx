@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Components
-import LoginForm from "../../components/LoginForm/LoginForm";
+import { LoginForm } from "../../components";
 
 // API
 import { loginApi } from "../../api/authApi";

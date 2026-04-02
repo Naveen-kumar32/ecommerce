@@ -3,8 +3,7 @@ import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 
 // Components
-import FormInput from "../FormInput/FormInput";
-import FormButton from "../FormButton/FormButton";
+import { FormInput, FormButton } from "../index";
 
 // Validators
 import { createLoginSchema } from "../../validators/loginSchema";
