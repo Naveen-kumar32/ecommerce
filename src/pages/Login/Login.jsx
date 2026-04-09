@@ -20,25 +20,39 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const {
+    LOGIN: { SUCCESS_MESSAGE, ERROR_FALLBACK, ...LOGIN_STRINGS },
+  } = en;
+
+  const { DASHBOARD } = ROUTES;
+
   const handleLogin = async (data) => {
+    if (loading) return;
+
     setLoading(true);
 
     try {
-      await loginApi(data);
+      const response = await loginApi(data);
 
-      showSuccess(en.LOGIN.SUCCESS_MESSAGE);
-
-      setTimeout(() => {
-        navigate(ROUTES.DASHBOARD);
-      }, 1000);
+      if (response?.status === 200 || response) {
+        showSuccess(SUCCESS_MESSAGE);
+        navigate(DASHBOARD);
+      } else {
+        showError(ERROR_FALLBACK);
+      }
     } catch (err) {
-      showError(err?.message ?? en.LOGIN.ERROR_FALLBACK);
+      const errorMessage =
+        err?.response?.data?.message ??
+        err?.message ??
+        ERROR_FALLBACK;
+
+      showError(errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
-  return <LoginForm onSubmit={handleLogin} loading={loading} strings={en.LOGIN} />;
+  return <LoginForm onSubmit={handleLogin} loading={loading} strings={LOGIN_STRINGS} />;
 };
 
 export default Login;

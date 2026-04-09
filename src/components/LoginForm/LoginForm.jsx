@@ -13,39 +13,50 @@ import en from "../../locales/en";
 import ROUTES from "../../locales/routes";
 
 const LoginForm = ({ onSubmit, loading, strings }) => {
+  const { VALIDATION } = en;
+  const { REGISTER } = ROUTES;
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    validationSchema: createLoginSchema(en.VALIDATION),
+    validationSchema: createLoginSchema(VALIDATION),
     onSubmit: (values) => {
       onSubmit(values);
     },
   });
 
+  const {
+    values: { email, password },
+    touched: { email: touchedEmail, password: touchedPassword },
+    errors: { email: errorEmail, password: errorPassword },
+    handleChange,
+    handleSubmit,
+  } = formik;
+
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <h2>{strings.TITLE}</h2>
 
       <FormInput
         type={strings.EMAIL_TYPE}
         name={strings.EMAIL_NAME}
         placeholder={strings.EMAIL_PLACEHOLDER}
-        value={formik.values.email}
-        onChange={formik.handleChange}
-        touched={formik.touched.email}
-        error={formik.errors.email}
+        value={email}
+        onChange={handleChange}
+        touched={touchedEmail}
+        error={errorEmail}
       />
 
       <FormInput
         type={strings.PASSWORD_TYPE}
         name={strings.PASSWORD_NAME}
         placeholder={strings.PASSWORD_PLACEHOLDER}
-        value={formik.values.password}
-        onChange={formik.handleChange}
-        touched={formik.touched.password}
-        error={formik.errors.password}
+        value={password}
+        onChange={handleChange}
+        touched={touchedPassword}
+        error={errorPassword}
       />
 
       <FormButton
@@ -58,7 +69,7 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
 
       <p>
         {strings.REDIRECT_TEXT}{" "}
-        <Link to={ROUTES.REGISTER}>{strings.REDIRECT_LINK}</Link>
+        <Link to={REGISTER}>{strings.REDIRECT_LINK}</Link>
       </p>
     </form>
   );

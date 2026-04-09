@@ -24,22 +24,38 @@ const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const {
+    REGISTER: { SUCCESS_MESSAGE, ERROR_FALLBACK, ...strings },
+    VALIDATION,
+  } = en;
+
+  const { LOGIN } = ROUTES;
+
   const handleRegister = async (values) => {
+    if (loading) return;
+
     setLoading(true);
+
     try {
-      await registerApi(values);
-      showSuccess(en.REGISTER.SUCCESS_MESSAGE);
-      setTimeout(() => {
-        navigate(ROUTES.LOGIN);
-      }, 1000);
+      const response = await registerApi(values);
+
+      if (response?.status === 201 || response) {
+        showSuccess(SUCCESS_MESSAGE);
+        navigate(LOGIN);
+      } else {
+        showError(ERROR_FALLBACK);
+      }
     } catch (err) {
-      showError(err?.message ?? en.REGISTER.ERROR_FALLBACK);
+      const errorMessage =
+        err?.response?.data?.message ??
+        err?.message ??
+        ERROR_FALLBACK;
+
+      showError(errorMessage);
     } finally {
       setLoading(false);
     }
   };
-
-  const strings = en.REGISTER;
 
   const formik = useFormik({
     initialValues: {
@@ -48,52 +64,60 @@ const RegisterForm = () => {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: createRegisterSchema(en.VALIDATION),
+    validationSchema: createRegisterSchema(VALIDATION),
     onSubmit: handleRegister,
   });
 
+  const {
+    values: { name, email, password, confirmPassword },
+    touched: { name: touchedName, email: touchedEmail, password: touchedPassword, confirmPassword: touchedConfirm },
+    errors: { name: errorName, email: errorEmail, password: errorPassword, confirmPassword: errorConfirm },
+    handleChange,
+    handleSubmit,
+  } = formik;
+
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <h2>{strings.TITLE}</h2>
 
       <FormInput
         type={strings.NAME_TYPE}
         name={strings.NAME_NAME}
         placeholder={strings.NAME_PLACEHOLDER}
-        value={formik.values.name}
-        onChange={formik.handleChange}
-        touched={formik.touched.name}
-        error={formik.errors.name}
+        value={name}
+        onChange={handleChange}
+        touched={touchedName}
+        error={errorName}
       />
 
       <FormInput
         type={strings.EMAIL_TYPE}
         name={strings.EMAIL_NAME}
         placeholder={strings.EMAIL_PLACEHOLDER}
-        value={formik.values.email}
-        onChange={formik.handleChange}
-        touched={formik.touched.email}
-        error={formik.errors.email}
+        value={email}
+        onChange={handleChange}
+        touched={touchedEmail}
+        error={errorEmail}
       />
 
       <FormInput
         type={strings.PASSWORD_TYPE}
         name={strings.PASSWORD_NAME}
         placeholder={strings.PASSWORD_PLACEHOLDER}
-        value={formik.values.password}
-        onChange={formik.handleChange}
-        touched={formik.touched.password}
-        error={formik.errors.password}
+        value={password}
+        onChange={handleChange}
+        touched={touchedPassword}
+        error={errorPassword}
       />
 
       <FormInput
         type={strings.CONFIRM_PASSWORD_TYPE}
         name={strings.CONFIRM_PASSWORD_NAME}
         placeholder={strings.CONFIRM_PASSWORD_PLACEHOLDER}
-        value={formik.values.confirmPassword}
-        onChange={formik.handleChange}
-        touched={formik.touched.confirmPassword}
-        error={formik.errors.confirmPassword}
+        value={confirmPassword}
+        onChange={handleChange}
+        touched={touchedConfirm}
+        error={errorConfirm}
       />
 
       <FormButton
@@ -106,7 +130,7 @@ const RegisterForm = () => {
 
       <p>
         {strings.REDIRECT_TEXT}{" "}
-        <Link to={ROUTES.LOGIN}>{strings.REDIRECT_LINK}</Link>
+        <Link to={LOGIN}>{strings.REDIRECT_LINK}</Link>
       </p>
     </form>
   );
