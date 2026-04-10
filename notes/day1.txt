@@ -1,0 +1,28 @@
+
+   Folder structure: api, components, config(reusable axios instance and api end point), locales(en, routes), pages, routes, validators
+   
+   reusable components (FormInput, FormButton)
+   
+   index.js so imports stay clean, and import in barrel file method
+
+   route paths in one file (routes.js) instead of writing them everywhere
+
+   New:
+
+   Formik (form handling)
+   Yup (validation)
+   en.js - String externalization, also. arrange the data in ascending order
+  
+   Axios + API setup
+
+   Storing. api url in .env file
+   Error: err.response?.data?.detail ?? ERROR_FALLBACK (optional chaining + nullish coalescing)
+
+   React Toastify
+  
+   Desctructuring ,
+   Import order(react or core lib , external , internal(project files) , (styles, image, data))
+
+
+
+
