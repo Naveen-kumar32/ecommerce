@@ -25,7 +25,28 @@ const RegisterForm = () => {
   const navigate = useNavigate();
 
   const {
-    REGISTER: { SUCCESS_MESSAGE, ERROR_FALLBACK, ...strings },
+    REGISTER: {
+      SUCCESS_MESSAGE,
+      ERROR_FALLBACK,
+      TITLE,
+      NAME_TYPE,
+      NAME_NAME,
+      NAME_PLACEHOLDER,
+      EMAIL_TYPE,
+      EMAIL_NAME,
+      EMAIL_PLACEHOLDER,
+      PASSWORD_TYPE,
+      PASSWORD_NAME,
+      PASSWORD_PLACEHOLDER,
+      CONFIRM_PASSWORD_TYPE,
+      CONFIRM_PASSWORD_NAME,
+      CONFIRM_PASSWORD_PLACEHOLDER,
+      SUBMIT_TYPE,
+      SUBMIT_BUTTON,
+      LOADING_BUTTON,
+      REDIRECT_TEXT,
+      REDIRECT_LINK,
+    },
     VALIDATION,
   } = en;
 
@@ -78,12 +99,12 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{strings.TITLE}</h2>
+      <h2>{TITLE}</h2>
 
       <FormInput
-        type={strings.NAME_TYPE}
-        name={strings.NAME_NAME}
-        placeholder={strings.NAME_PLACEHOLDER}
+        type={NAME_TYPE}
+        name={NAME_NAME}
+        placeholder={NAME_PLACEHOLDER}
         value={name}
         onChange={handleChange}
         touched={touchedName}
@@ -91,9 +112,9 @@ const RegisterForm = () => {
       />
 
       <FormInput
-        type={strings.EMAIL_TYPE}
-        name={strings.EMAIL_NAME}
-        placeholder={strings.EMAIL_PLACEHOLDER}
+        type={EMAIL_TYPE}
+        name={EMAIL_NAME}
+        placeholder={EMAIL_PLACEHOLDER}
         value={email}
         onChange={handleChange}
         touched={touchedEmail}
@@ -101,9 +122,9 @@ const RegisterForm = () => {
       />
 
       <FormInput
-        type={strings.PASSWORD_TYPE}
-        name={strings.PASSWORD_NAME}
-        placeholder={strings.PASSWORD_PLACEHOLDER}
+        type={PASSWORD_TYPE}
+        name={PASSWORD_NAME}
+        placeholder={PASSWORD_PLACEHOLDER}
         value={password}
         onChange={handleChange}
         touched={touchedPassword}
@@ -111,9 +132,9 @@ const RegisterForm = () => {
       />
 
       <FormInput
-        type={strings.CONFIRM_PASSWORD_TYPE}
-        name={strings.CONFIRM_PASSWORD_NAME}
-        placeholder={strings.CONFIRM_PASSWORD_PLACEHOLDER}
+        type={CONFIRM_PASSWORD_TYPE}
+        name={CONFIRM_PASSWORD_NAME}
+        placeholder={CONFIRM_PASSWORD_PLACEHOLDER}
         value={confirmPassword}
         onChange={handleChange}
         touched={touchedConfirm}
@@ -121,16 +142,16 @@ const RegisterForm = () => {
       />
 
       <FormButton
-        type={strings.SUBMIT_TYPE}
+        type={SUBMIT_TYPE}
         disabled={loading}
         loading={loading}
-        label={strings.SUBMIT_BUTTON}
-        loadingLabel={strings.LOADING_BUTTON}
+        label={SUBMIT_BUTTON}
+        loadingLabel={LOADING_BUTTON}
       />
 
       <p>
-        {strings.REDIRECT_TEXT}{" "}
-        <Link to={LOGIN}>{strings.REDIRECT_LINK}</Link>
+        {REDIRECT_TEXT}{" "}
+        <Link to={LOGIN}>{REDIRECT_LINK}</Link>
       </p>
     </form>
   );

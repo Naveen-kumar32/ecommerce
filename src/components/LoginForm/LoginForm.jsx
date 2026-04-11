@@ -16,6 +16,21 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
   const { VALIDATION } = en;
   const { REGISTER } = ROUTES;
 
+  const {
+    TITLE,
+    EMAIL_TYPE,
+    EMAIL_NAME,
+    EMAIL_PLACEHOLDER,
+    PASSWORD_TYPE,
+    PASSWORD_NAME,
+    PASSWORD_PLACEHOLDER,
+    SUBMIT_TYPE,
+    SUBMIT_BUTTON,
+    LOADING_BUTTON,
+    REDIRECT_TEXT,
+    REDIRECT_LINK,
+  } = strings;
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -37,12 +52,12 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{strings.TITLE}</h2>
+      <h2>{TITLE}</h2>
 
       <FormInput
-        type={strings.EMAIL_TYPE}
-        name={strings.EMAIL_NAME}
-        placeholder={strings.EMAIL_PLACEHOLDER}
+        type={EMAIL_TYPE}
+        name={EMAIL_NAME}
+        placeholder={EMAIL_PLACEHOLDER}
         value={email}
         onChange={handleChange}
         touched={touchedEmail}
@@ -50,9 +65,9 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
       />
 
       <FormInput
-        type={strings.PASSWORD_TYPE}
-        name={strings.PASSWORD_NAME}
-        placeholder={strings.PASSWORD_PLACEHOLDER}
+        type={PASSWORD_TYPE}
+        name={PASSWORD_NAME}
+        placeholder={PASSWORD_PLACEHOLDER}
         value={password}
         onChange={handleChange}
         touched={touchedPassword}
@@ -60,16 +75,16 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
       />
 
       <FormButton
-        type={strings.SUBMIT_TYPE}
+        type={SUBMIT_TYPE}
         disabled={loading}
         loading={loading}
-        label={strings.SUBMIT_BUTTON}
-        loadingLabel={strings.LOADING_BUTTON}
+        label={SUBMIT_BUTTON}
+        loadingLabel={LOADING_BUTTON}
       />
 
       <p>
-        {strings.REDIRECT_TEXT}{" "}
-        <Link to={REGISTER}>{strings.REDIRECT_LINK}</Link>
+        {REDIRECT_TEXT}{" "}
+        <Link to={REGISTER}>{REDIRECT_LINK}</Link>
       </p>
     </form>
   );

@@ -8,12 +8,14 @@ import { Login, Register, Dashboard } from "../pages";
 import ROUTES from "../locales/routes";
 
 const AppRoutes = () => {
+  const { LOGIN, REGISTER, DASHBOARD } = ROUTES;
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={ROUTES.LOGIN} element={<Login />} />
-        <Route path={ROUTES.REGISTER} element={<Register />} />
-        <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
+        <Route path={LOGIN} element={<Login />} />
+        <Route path={REGISTER} element={<Register />} />
+        <Route path={DASHBOARD} element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,24 +1,39 @@
 // Third-party
 import * as Yup from "yup";
 
-export const createRegisterSchema = (v) =>
-  Yup.object({
+export const createRegisterSchema = (v) => {
+  const {
+    NAME_REQUIRED,
+    EMAIL_INVALID,
+    EMAIL_REQUIRED,
+    PASSWORD_MIN,
+    PASSWORD_UPPERCASE,
+    PASSWORD_LOWERCASE,
+    PASSWORD_NUMBER,
+    PASSWORD_SPECIAL,
+    PASSWORD_REQUIRED,
+    CONFIRM_PASSWORD_MATCH,
+    CONFIRM_PASSWORD_REQUIRED,
+  } = v;
+
+  return Yup.object({
     name: Yup.string()
-      .required(v.NAME_REQUIRED),
+      .required(NAME_REQUIRED),
 
     email: Yup.string()
-      .email(v.EMAIL_INVALID)
-      .required(v.EMAIL_REQUIRED),
+      .email(EMAIL_INVALID)
+      .required(EMAIL_REQUIRED),
 
     password: Yup.string()
-      .min(8, v.PASSWORD_MIN)
-      .matches(/[A-Z]/, v.PASSWORD_UPPERCASE)
-      .matches(/[a-z]/, v.PASSWORD_LOWERCASE)
-      .matches(/\d/, v.PASSWORD_NUMBER)
-      .matches(/[@$!%*?&]/, v.PASSWORD_SPECIAL)
-      .required(v.PASSWORD_REQUIRED),
+      .min(8, PASSWORD_MIN)
+      .matches(/[A-Z]/, PASSWORD_UPPERCASE)
+      .matches(/[a-z]/, PASSWORD_LOWERCASE)
+      .matches(/\d/, PASSWORD_NUMBER)
+      .matches(/[@$!%*?&]/, PASSWORD_SPECIAL)
+      .required(PASSWORD_REQUIRED),
 
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], v.CONFIRM_PASSWORD_MATCH)
-      .required(v.CONFIRM_PASSWORD_REQUIRED),
+      .oneOf([Yup.ref("password")], CONFIRM_PASSWORD_MATCH)
+      .required(CONFIRM_PASSWORD_REQUIRED),
   });
+};
