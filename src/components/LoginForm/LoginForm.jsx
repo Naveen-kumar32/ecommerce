@@ -18,9 +18,9 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
 
   const {
     TITLE,
-    EMAIL_TYPE,
-    EMAIL_NAME,
-    EMAIL_PLACEHOLDER,
+    IDENTIFIER_TYPE,
+    IDENTIFIER_NAME,
+    IDENTIFIER_PLACEHOLDER,
     PASSWORD_TYPE,
     PASSWORD_NAME,
     PASSWORD_PLACEHOLDER,
@@ -33,7 +33,7 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      identifier: "",
       password: "",
     },
     validationSchema: createLoginSchema(VALIDATION),
@@ -43,25 +43,25 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
   });
 
   const {
-    values: { email, password },
-    touched: { email: touchedEmail, password: touchedPassword },
-    errors: { email: errorEmail, password: errorPassword },
+    values: { identifier, password },
+    touched: { identifier: touchedIdentifier, password: touchedPassword },
+    errors: { identifier: errorIdentifier, password: errorPassword },
     handleChange,
     handleSubmit,
   } = formik;
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{TITLE}</h2>
+      {TITLE && <h2 className="auth-title">{TITLE}</h2>}
 
       <FormInput
-        type={EMAIL_TYPE}
-        name={EMAIL_NAME}
-        placeholder={EMAIL_PLACEHOLDER}
-        value={email}
+        type={IDENTIFIER_TYPE}
+        name={IDENTIFIER_NAME}
+        placeholder={IDENTIFIER_PLACEHOLDER}
+        value={identifier}
         onChange={handleChange}
-        touched={touchedEmail}
-        error={errorEmail}
+        touched={touchedIdentifier}
+        error={errorIdentifier}
       />
 
       <FormInput
@@ -82,7 +82,7 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
         loadingLabel={LOADING_BUTTON}
       />
 
-      <p>
+      <p className="auth-redirect">
         {REDIRECT_TEXT}{" "}
         <Link to={REGISTER}>{REDIRECT_LINK}</Link>
       </p>

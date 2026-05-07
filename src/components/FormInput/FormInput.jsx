@@ -1,16 +1,18 @@
+// Styles
+import "./FormInput.css";
+
 const FormInput = ({ type, name, placeholder, value, onChange, touched, error }) => {
   return (
-    <div>
+    <div className="form-group">
       <input
+        className={`form-input${touched && error ? " has-error" : ""}`}
         type={type}
         name={name}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
       />
-      {touched && error && (
-        <p style={{ color: "red" }}>{error}</p>
-      )}
+      {touched && error && <p className="form-error">{error}</p>}
     </div>
   );
 };

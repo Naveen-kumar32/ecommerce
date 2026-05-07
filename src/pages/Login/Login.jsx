@@ -28,24 +28,19 @@ const Login = () => {
 
   const handleLogin = async (data) => {
     if (loading) return;
-
     setLoading(true);
 
     try {
       const response = await loginApi(data);
 
-      if (response?.status === 200 || response) {
+      if (response) {
+        localStorage.setItem("token", response.access_token);
+        localStorage.setItem("username", response.username);
         showSuccess(SUCCESS_MESSAGE);
         navigate(DASHBOARD);
-      } else {
-        showError(ERROR_FALLBACK);
       }
     } catch (err) {
-      const errorMessage =
-        err?.response?.data?.message ??
-        err?.message ??
-        ERROR_FALLBACK;
-
+      const errorMessage = err?.message ?? ERROR_FALLBACK;
       showError(errorMessage);
     } finally {
       setLoading(false);

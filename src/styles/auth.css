@@ -1,0 +1,7 @@
+/* Styles moved to co-located component CSS files:
+   - src/layouts/AuthLayout/AuthLayout.css  (layout, card, branding, title, banner, redirect)
+   - src/components/FormInput/FormInput.css (input, error)
+   - src/components/FormButton/FormButton.css (button)
+   - src/layouts/MainLayout/MainLayout.css  (header, logout)
+   - src/pages/Dashboard/Dashboard.css     (welcome section)
+*/

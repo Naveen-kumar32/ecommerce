@@ -1,7 +1,7 @@
 const ROUTES = {
   DASHBOARD: "/dashboard",
-  LOGIN: "/",
-  REGISTER: "/register",
+  LOGIN: "/login",
+  REGISTER: "/",
 };
 
 export default ROUTES;

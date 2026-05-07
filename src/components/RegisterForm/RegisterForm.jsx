@@ -20,7 +20,7 @@ import { createRegisterSchema } from "../../validators/registerSchema";
 import en from "../../locales/en";
 import ROUTES from "../../locales/routes";
 
-const RegisterForm = () => {
+const RegisterForm = ({ onSuccess }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -29,18 +29,15 @@ const RegisterForm = () => {
       SUCCESS_MESSAGE,
       ERROR_FALLBACK,
       TITLE,
-      NAME_TYPE,
-      NAME_NAME,
-      NAME_PLACEHOLDER,
+      USERNAME_TYPE,
+      USERNAME_NAME,
+      USERNAME_PLACEHOLDER,
       EMAIL_TYPE,
       EMAIL_NAME,
       EMAIL_PLACEHOLDER,
       PASSWORD_TYPE,
       PASSWORD_NAME,
       PASSWORD_PLACEHOLDER,
-      CONFIRM_PASSWORD_TYPE,
-      CONFIRM_PASSWORD_NAME,
-      CONFIRM_PASSWORD_PLACEHOLDER,
       SUBMIT_TYPE,
       SUBMIT_BUTTON,
       LOADING_BUTTON,
@@ -54,24 +51,21 @@ const RegisterForm = () => {
 
   const handleRegister = async (values) => {
     if (loading) return;
-
     setLoading(true);
 
     try {
       const response = await registerApi(values);
 
-      if (response?.status === 201 || response) {
+      if (response) {
         showSuccess(SUCCESS_MESSAGE);
-        navigate(LOGIN);
-      } else {
-        showError(ERROR_FALLBACK);
+        if (onSuccess) {
+          onSuccess();
+        } else {
+          navigate(LOGIN);
+        }
       }
     } catch (err) {
-      const errorMessage =
-        err?.response?.data?.message ??
-        err?.message ??
-        ERROR_FALLBACK;
-
+      const errorMessage = err?.message ?? ERROR_FALLBACK;
       showError(errorMessage);
     } finally {
       setLoading(false);
@@ -80,35 +74,34 @@ const RegisterForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      username: "",
       email: "",
       password: "",
-      confirmPassword: "",
     },
     validationSchema: createRegisterSchema(VALIDATION),
     onSubmit: handleRegister,
   });
 
   const {
-    values: { name, email, password, confirmPassword },
-    touched: { name: touchedName, email: touchedEmail, password: touchedPassword, confirmPassword: touchedConfirm },
-    errors: { name: errorName, email: errorEmail, password: errorPassword, confirmPassword: errorConfirm },
+    values: { username, email, password },
+    touched: { username: touchedUsername, email: touchedEmail, password: touchedPassword },
+    errors: { username: errorUsername, email: errorEmail, password: errorPassword },
     handleChange,
     handleSubmit,
   } = formik;
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{TITLE}</h2>
+      {TITLE && <h2 className="auth-title">{TITLE}</h2>}
 
       <FormInput
-        type={NAME_TYPE}
-        name={NAME_NAME}
-        placeholder={NAME_PLACEHOLDER}
-        value={name}
+        type={USERNAME_TYPE}
+        name={USERNAME_NAME}
+        placeholder={USERNAME_PLACEHOLDER}
+        value={username}
         onChange={handleChange}
-        touched={touchedName}
-        error={errorName}
+        touched={touchedUsername}
+        error={errorUsername}
       />
 
       <FormInput
@@ -131,16 +124,6 @@ const RegisterForm = () => {
         error={errorPassword}
       />
 
-      <FormInput
-        type={CONFIRM_PASSWORD_TYPE}
-        name={CONFIRM_PASSWORD_NAME}
-        placeholder={CONFIRM_PASSWORD_PLACEHOLDER}
-        value={confirmPassword}
-        onChange={handleChange}
-        touched={touchedConfirm}
-        error={errorConfirm}
-      />
-
       <FormButton
         type={SUBMIT_TYPE}
         disabled={loading}
@@ -149,7 +132,7 @@ const RegisterForm = () => {
         loadingLabel={LOADING_BUTTON}
       />
 
-      <p>
+      <p className="auth-redirect">
         {REDIRECT_TEXT}{" "}
         <Link to={LOGIN}>{REDIRECT_LINK}</Link>
       </p>

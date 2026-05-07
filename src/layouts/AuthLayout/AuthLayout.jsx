@@ -1,0 +1,19 @@
+// Third-party
+import { Outlet } from "react-router-dom";
+
+// Styles
+import "./AuthLayout.css";
+
+const AuthLayout = () => {
+  return (
+    <div className="auth-layout">
+      <div className="auth-card">
+
+        <Outlet />
+
+      </div>
+    </div>
+  );
+};
+
+export default AuthLayout;

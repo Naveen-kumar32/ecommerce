@@ -3,7 +3,7 @@ import * as Yup from "yup";
 
 export const createRegisterSchema = (v) => {
   const {
-    NAME_REQUIRED,
+    USERNAME_REQUIRED,
     EMAIL_INVALID,
     EMAIL_REQUIRED,
     PASSWORD_MIN,
@@ -12,13 +12,10 @@ export const createRegisterSchema = (v) => {
     PASSWORD_NUMBER,
     PASSWORD_SPECIAL,
     PASSWORD_REQUIRED,
-    CONFIRM_PASSWORD_MATCH,
-    CONFIRM_PASSWORD_REQUIRED,
   } = v;
 
   return Yup.object({
-    name: Yup.string()
-      .required(NAME_REQUIRED),
+    username: Yup.string().required(USERNAME_REQUIRED),
 
     email: Yup.string()
       .email(EMAIL_INVALID)
@@ -31,9 +28,5 @@ export const createRegisterSchema = (v) => {
       .matches(/\d/, PASSWORD_NUMBER)
       .matches(/[@$!%*?&]/, PASSWORD_SPECIAL)
       .required(PASSWORD_REQUIRED),
-
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], CONFIRM_PASSWORD_MATCH)
-      .required(CONFIRM_PASSWORD_REQUIRED),
   });
 };

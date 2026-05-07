@@ -2,25 +2,22 @@ from pydantic import BaseModel, EmailStr
 
 
 class RegisterRequest(BaseModel):
-    name: str
+    username: str
     email: EmailStr
     password: str
 
 
 class RegisterResponse(BaseModel):
-    id: int
-    name: str
-    email: str
     message: str
 
 
 class LoginRequest(BaseModel):
-    email: EmailStr
+    identifier: str  # accepts email or username
     password: str
 
 
 class LoginResponse(BaseModel):
-    id: int
-    name: str
+    access_token: str
+    token_type: str = "bearer"
+    username: str
     email: str
-    message: str
