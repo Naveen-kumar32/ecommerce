@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 // Components
 import { FormInput, FormButton } from "../index";
 
+// Constants
+import { createUserRoleOptions, USER_ROLES } from "../../constants/userRoles";
+
 // Validators
 import { createLoginSchema } from "../../validators/loginSchema";
 
@@ -13,8 +16,9 @@ import en from "../../locales/en";
 import ROUTES from "../../locales/routes";
 
 const LoginForm = ({ onSubmit, loading, strings }) => {
-  const { VALIDATION } = en;
+  const { ROLES, VALIDATION } = en;
   const { REGISTER } = ROUTES;
+  const roleOptions = createUserRoleOptions(ROLES);
 
   const {
     TITLE,
@@ -25,6 +29,9 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
     PASSWORD_NAME,
     PASSWORD_PLACEHOLDER,
     SUBMIT_TYPE,
+    ROLE_NAME,
+    ROLE_PLACEHOLDER,
+    ROLE_TYPE,
     SUBMIT_BUTTON,
     LOADING_BUTTON,
     REDIRECT_TEXT,
@@ -35,6 +42,7 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
     initialValues: {
       identifier: "",
       password: "",
+      role: USER_ROLES.CUSTOMER,
     },
     validationSchema: createLoginSchema(VALIDATION),
     onSubmit: (values) => {
@@ -43,9 +51,10 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
   });
 
   const {
-    values: { identifier, password },
-    touched: { identifier: touchedIdentifier, password: touchedPassword },
-    errors: { identifier: errorIdentifier, password: errorPassword },
+    values: { identifier, password, role },
+    touched: { identifier: touchedIdentifier, password: touchedPassword, role: touchedRole },
+    errors: { identifier: errorIdentifier, password: errorPassword, role: errorRole },
+    handleBlur,
     handleChange,
     handleSubmit,
   } = formik;
@@ -59,6 +68,7 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
         name={IDENTIFIER_NAME}
         placeholder={IDENTIFIER_PLACEHOLDER}
         value={identifier}
+        onBlur={handleBlur}
         onChange={handleChange}
         touched={touchedIdentifier}
         error={errorIdentifier}
@@ -69,9 +79,22 @@ const LoginForm = ({ onSubmit, loading, strings }) => {
         name={PASSWORD_NAME}
         placeholder={PASSWORD_PLACEHOLDER}
         value={password}
+        onBlur={handleBlur}
         onChange={handleChange}
         touched={touchedPassword}
         error={errorPassword}
+      />
+
+      <FormInput
+        type={ROLE_TYPE}
+        name={ROLE_NAME}
+        placeholder={ROLE_PLACEHOLDER}
+        value={role}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        options={roleOptions}
+        touched={touchedRole}
+        error={errorRole}
       />
 
       <FormButton

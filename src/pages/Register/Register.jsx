@@ -1,5 +1,7 @@
 // Third-party
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // Components
 import { RegisterForm, LoginForm } from "../../components";
@@ -7,25 +9,26 @@ import { RegisterForm, LoginForm } from "../../components";
 // API
 import { loginApi } from "../../api/authApi";
 
+// Store
+import { setCredentials } from "../../store/authSlice";
+
 // Utils
+import { getDashboardRouteForRole } from "../../utils/authRedirect";
 import { showError } from "../../utils/errorToast";
 
 // Constants / Locales
 import en from "../../locales/en";
-import ROUTES from "../../locales/routes";
-
-import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const {
-    LOGIN: { SUCCESS_MESSAGE: LOGIN_SUCCESS, ERROR_FALLBACK, ...LOGIN_STRINGS },
+    LOGIN: { ERROR_FALLBACK, ...LOGIN_STRINGS },
+    REGISTER: { SUCCESS_BANNER },
   } = en;
-
-  const { DASHBOARD } = ROUTES;
 
   const handleLogin = async (data) => {
     if (loading) return;
@@ -35,9 +38,8 @@ const Register = () => {
       const response = await loginApi(data);
 
       if (response) {
-        localStorage.setItem("token", response.access_token);
-        localStorage.setItem("username", response.username);
-        navigate(DASHBOARD);
+        dispatch(setCredentials(response));
+        navigate(getDashboardRouteForRole(response.role));
       }
     } catch (err) {
       const errorMessage = err?.message ?? ERROR_FALLBACK;
@@ -51,7 +53,7 @@ const Register = () => {
     return (
       <>
         <p className="auth-success-banner">
-          Account created! Log in below.
+          {SUCCESS_BANNER}
         </p>
         <LoginForm onSubmit={handleLogin} loading={loading} strings={LOGIN_STRINGS} />
       </>

@@ -1,0 +1,305 @@
+.shop-home {
+  min-height: 100vh;
+  background: #fbfaf7;
+  color: #1f2937;
+  text-align: left;
+}
+
+.shop-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 72px;
+  padding: 0 36px;
+  background: rgba(251, 250, 247, 0.94);
+  border-bottom: 1px solid #e7e2d8;
+  backdrop-filter: blur(14px);
+}
+
+.shop-logo {
+  color: #111827;
+  font-size: 22px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.shop-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.shop-nav a {
+  color: #5b6472;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.shop-actions,
+.shop-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.shop-user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 0;
+}
+
+.shop-user span,
+.shop-user small {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shop-user span {
+  color: #111827;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.shop-user small {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.shop-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid #d4d0c7;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1f2937;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.shop-btn-primary {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.shop-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 440px);
+  align-items: center;
+  gap: 40px;
+  padding: 58px 36px 36px;
+}
+
+.shop-hero-copy {
+  max-width: 650px;
+}
+
+.shop-kicker,
+.section-heading span,
+.product-info span,
+.account-strip span,
+.service-band span {
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.shop-hero h1 {
+  max-width: 660px;
+  margin: 14px 0 18px;
+  color: #111827;
+  font-size: 54px;
+  line-height: 1.02;
+  font-weight: 850;
+  letter-spacing: 0;
+}
+
+.shop-hero p {
+  max-width: 560px;
+  color: #5b6472;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 26px;
+}
+
+.shop-hero-media {
+  min-height: 420px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #dbeafe;
+}
+
+.shop-hero-media img {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+.account-strip,
+.service-band {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0 36px;
+  background: #e7e2d8;
+  border: 1px solid #e7e2d8;
+}
+
+.account-strip div,
+.service-band div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 18px;
+  background: #ffffff;
+}
+
+.account-strip strong,
+.service-band strong {
+  color: #111827;
+  font-size: 16px;
+}
+
+.product-section {
+  padding: 54px 36px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.section-heading h2 {
+  margin: 4px 0 0;
+  color: #111827;
+  font-size: 30px;
+  letter-spacing: 0;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.product-card {
+  overflow: hidden;
+  border: 1px solid #e7e2d8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.product-image {
+  position: relative;
+  min-height: 190px;
+  background:
+    linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(16, 185, 129, 0.18)),
+    #f4f6f8;
+}
+
+.product-image span {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #111827;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.product-info {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+}
+
+.product-info h3 {
+  margin: 0;
+  color: #111827;
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.product-info strong {
+  color: #111827;
+  font-size: 18px;
+}
+
+.service-band {
+  margin-bottom: 42px;
+}
+
+@media (max-width: 860px) {
+  .shop-header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 18px;
+  }
+
+  .shop-nav {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .shop-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .shop-user {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .shop-hero {
+    grid-template-columns: 1fr;
+    padding: 36px 18px 24px;
+  }
+
+  .shop-hero h1 {
+    font-size: 38px;
+  }
+
+  .shop-hero-media,
+  .shop-hero-media img {
+    min-height: 300px;
+  }
+
+  .account-strip,
+  .service-band,
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .account-strip,
+  .service-band {
+    margin: 0 18px;
+  }
+
+  .product-section {
+    padding: 42px 18px;
+  }
+}

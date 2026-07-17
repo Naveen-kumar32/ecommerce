@@ -1,10 +1,21 @@
+from enum import Enum
+from typing import Optional
+
 from pydantic import BaseModel, EmailStr
+
+
+class UserRole(str, Enum):
+    admin = "admin"
+    customer = "customer"
+    sales = "sales"
+    support = "support"
 
 
 class RegisterRequest(BaseModel):
     username: str
     email: EmailStr
     password: str
+    role: UserRole = UserRole.customer
 
 
 class RegisterResponse(BaseModel):
@@ -14,6 +25,7 @@ class RegisterResponse(BaseModel):
 class LoginRequest(BaseModel):
     identifier: str  # accepts email or username
     password: str
+    role: Optional[UserRole] = None
 
 
 class LoginResponse(BaseModel):
@@ -21,3 +33,4 @@ class LoginResponse(BaseModel):
     token_type: str = "bearer"
     username: str
     email: str
+    role: UserRole

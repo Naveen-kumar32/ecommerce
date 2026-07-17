@@ -6,6 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 // Components
 import { FormInput, FormButton } from "../index";
 
+// Constants
+import { createUserRoleOptions, USER_ROLES } from "../../constants/userRoles";
+
 // API
 import { registerApi } from "../../api/authApi";
 
@@ -39,15 +42,20 @@ const RegisterForm = ({ onSuccess }) => {
       PASSWORD_NAME,
       PASSWORD_PLACEHOLDER,
       SUBMIT_TYPE,
+      ROLE_NAME,
+      ROLE_PLACEHOLDER,
+      ROLE_TYPE,
       SUBMIT_BUTTON,
       LOADING_BUTTON,
       REDIRECT_TEXT,
       REDIRECT_LINK,
     },
+    ROLES,
     VALIDATION,
   } = en;
 
   const { LOGIN } = ROUTES;
+  const roleOptions = createUserRoleOptions(ROLES);
 
   const handleRegister = async (values) => {
     if (loading) return;
@@ -77,15 +85,27 @@ const RegisterForm = ({ onSuccess }) => {
       username: "",
       email: "",
       password: "",
+      role: USER_ROLES.CUSTOMER,
     },
     validationSchema: createRegisterSchema(VALIDATION),
     onSubmit: handleRegister,
   });
 
   const {
-    values: { username, email, password },
-    touched: { username: touchedUsername, email: touchedEmail, password: touchedPassword },
-    errors: { username: errorUsername, email: errorEmail, password: errorPassword },
+    values: { username, email, password, role },
+    touched: {
+      email: touchedEmail,
+      password: touchedPassword,
+      role: touchedRole,
+      username: touchedUsername,
+    },
+    errors: {
+      email: errorEmail,
+      password: errorPassword,
+      role: errorRole,
+      username: errorUsername,
+    },
+    handleBlur,
     handleChange,
     handleSubmit,
   } = formik;
@@ -99,6 +119,7 @@ const RegisterForm = ({ onSuccess }) => {
         name={USERNAME_NAME}
         placeholder={USERNAME_PLACEHOLDER}
         value={username}
+        onBlur={handleBlur}
         onChange={handleChange}
         touched={touchedUsername}
         error={errorUsername}
@@ -109,6 +130,7 @@ const RegisterForm = ({ onSuccess }) => {
         name={EMAIL_NAME}
         placeholder={EMAIL_PLACEHOLDER}
         value={email}
+        onBlur={handleBlur}
         onChange={handleChange}
         touched={touchedEmail}
         error={errorEmail}
@@ -119,9 +141,22 @@ const RegisterForm = ({ onSuccess }) => {
         name={PASSWORD_NAME}
         placeholder={PASSWORD_PLACEHOLDER}
         value={password}
+        onBlur={handleBlur}
         onChange={handleChange}
         touched={touchedPassword}
         error={errorPassword}
+      />
+
+      <FormInput
+        type={ROLE_TYPE}
+        name={ROLE_NAME}
+        placeholder={ROLE_PLACEHOLDER}
+        value={role}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        options={roleOptions}
+        touched={touchedRole}
+        error={errorRole}
       />
 
       <FormButton

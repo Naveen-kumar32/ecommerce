@@ -7,11 +7,20 @@ import "react-toastify/dist/ReactToastify.css";
 // Routes
 import router from "./routes";
 
-const Loader = () => (
-  <div style={{ display: "flex", height: "100vh", alignItems: "center", justifyContent: "center", color: "#6366f1", fontSize: 16 }}>
-    Loading...
-  </div>
-);
+// Constants / Locales
+import en from "./locales/en";
+
+const Loader = () => {
+  const {
+    COMMON: { LOADING },
+  } = en;
+
+  return (
+    <div style={{ display: "flex", height: "100vh", alignItems: "center", justifyContent: "center", color: "#6366f1", fontSize: 16 }}>
+      {LOADING}
+    </div>
+  );
+};
 
 function App() {
   return (

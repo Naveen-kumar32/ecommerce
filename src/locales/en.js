@@ -1,7 +1,23 @@
 const en = {
+  ADMIN_DASHBOARD: {
+    ACTIONS: ["Add product", "View orders", "Manage users", "Review inventory"],
+    ARIA_STORE_OVERVIEW: "Store overview",
+    KICKER: "Admin dashboard",
+    PANEL_TITLE: "Store controls",
+    PROFILE_LABEL: "Signed in",
+    STATS: [
+      { label: "Orders today", value: "128" },
+      { label: "Pending shipments", value: "24" },
+      { label: "Active customers", value: "1.8k" },
+    ],
+    SUBTITLE: "Manage products, customers, orders, and store activity from one place.",
+    WELCOME: "Welcome",
+  },
+
   AUTH: {
     EMAIL_ALREADY_EXISTS: "Email already registered",
     INVALID_CREDENTIALS: "Invalid credentials",
+    ROLE_MISMATCH: "Selected role does not match this account",
     USERNAME_TAKEN: "Username already taken",
   },
 
@@ -9,13 +25,73 @@ const en = {
     CANCEL: "Cancel",
     DELETE: "Delete",
     LOADING: "Loading...",
+    LOGOUT: "Logout",
     SAVE: "Save",
     SUBMIT: "Submit",
   },
 
   DASHBOARD: {
-    LOGOUT: "Logout",
-    WELCOME: "Welcome to Dashboard",
+    ACTIONS: {
+      CONTINUE_SHOPPING: "Continue shopping",
+      OPEN_SALES_LEADS: "Open sales leads",
+      TRACK_ORDER: "Track order",
+      VIEW_CART: "View cart",
+    },
+    ARIA_ACCOUNT_OVERVIEW: "Account overview",
+    CUSTOMER_KICKER: "Customer dashboard",
+    EMAIL_LABEL: "Email",
+    ORDERS: [
+      { label: "Awaiting payment", value: "1" },
+      { label: "In transit", value: "2" },
+      { label: "Saved items", value: "6" },
+    ],
+    ORDER_ACTIVITY_TITLE: "Order activity",
+    PRODUCTS: [
+      { label: "Cloud Cotton Shirt", meta: "Apparel", price: "$58" },
+      { label: "Daily Knit Tote", meta: "Bags", price: "$42" },
+      { label: "Travel Bottle Set", meta: "Travel", price: "$24" },
+    ],
+    QUICK_ACTIONS_TITLE: "Quick actions",
+    RECOMMENDED_PRODUCTS_TITLE: "Recommended products",
+    ROLE_LABEL: "Role",
+    STATUS_LABEL: "Status",
+    STATUS_VALUE: "Active",
+    SUBTITLE: "Track your orders, continue shopping, and manage your ecommerce account.",
+    WELCOME: "Welcome",
+  },
+
+  HOME: {
+    ACCOUNT_ARIA: "Account details",
+    ACCOUNT_TYPE_LABEL: "Account type",
+    ADMIN_BUTTON: "Admin",
+    BRAND: "ShopEase",
+    DASHBOARD_BUTTON: "Dashboard",
+    EMAIL_LABEL: "Email",
+    HERO_CTA: "Shop now",
+    HERO_DESCRIPTION: "Browse curated goods across fashion, home, travel, and gifts with fast checkout and clean account access.",
+    HERO_LOGIN_CTA: "Login to continue",
+    HERO_TITLE: "Shopping made simple for everyday essentials.",
+    KICKER: "Fresh picks every week",
+    LOGIN_BUTTON: "Login",
+    NAV_ARIA: "Primary navigation",
+    NAV_OFFERS: "Offers",
+    NAV_PRODUCTS: "Products",
+    NAV_SUPPORT: "Support",
+    PRODUCTS: [
+      { badge: "New", category: "Bags", name: "Daily Knit Tote", price: "$42" },
+      { badge: "Popular", category: "Apparel", name: "Cloud Cotton Shirt", price: "$58" },
+      { badge: "Sale", category: "Home", name: "Desk Light Mini", price: "$36" },
+      { badge: "Eco", category: "Travel", name: "Travel Bottle Set", price: "$24" },
+    ],
+    PRODUCT_SECTION_KICKER: "Featured",
+    PRODUCT_SECTION_TITLE: "Popular products",
+    SERVICE_BAND: [
+      { label: "Free shipping", value: "On orders above $75" },
+      { label: "Easy returns", value: "30 day return window" },
+      { label: "Support", value: "Help whenever you need it" },
+    ],
+    SIGNED_IN_LABEL: "Signed in as",
+    SIGNUP_BUTTON: "Sign up",
   },
 
   LOGIN: {
@@ -29,10 +105,18 @@ const en = {
     PASSWORD_TYPE: "password",
     REDIRECT_LINK: "Register",
     REDIRECT_TEXT: "Don't have an account?",
+    ROLE_NAME: "role",
+    ROLE_PLACEHOLDER: "Select role",
+    ROLE_TYPE: "select",
     SUBMIT_BUTTON: "Login",
     SUBMIT_TYPE: "submit",
-    SUCCESS_MESSAGE: "Login successful 🎉",
+    SUCCESS_MESSAGE: "Login successful!",
     TITLE: "",
+  },
+
+  MAIN_LAYOUT: {
+    APP_NAME: "React Project",
+    FALLBACK_USERNAME: "User",
   },
 
   REGISTER: {
@@ -46,13 +130,24 @@ const en = {
     PASSWORD_TYPE: "password",
     REDIRECT_LINK: "Login",
     REDIRECT_TEXT: "Already have an account?",
+    ROLE_NAME: "role",
+    ROLE_PLACEHOLDER: "Select role",
+    ROLE_TYPE: "select",
     SUBMIT_BUTTON: "Create Account",
     SUBMIT_TYPE: "submit",
-    SUCCESS_MESSAGE: "Account created successfully! 🎉",
+    SUCCESS_BANNER: "Account created! Log in below.",
+    SUCCESS_MESSAGE: "Account created successfully!",
     TITLE: "",
     USERNAME_NAME: "username",
     USERNAME_PLACEHOLDER: "Username",
     USERNAME_TYPE: "text",
+  },
+
+  ROLES: {
+    ADMIN: "Admin",
+    CUSTOMER: "Customer",
+    SALES: "Sales",
+    SUPPORT: "Support",
   },
 
   VALIDATION: {
@@ -65,6 +160,7 @@ const en = {
     PASSWORD_REQUIRED: "Password is required",
     PASSWORD_SPECIAL: "Must contain a special character (@$!%*?&)",
     PASSWORD_UPPERCASE: "Must contain an uppercase letter",
+    ROLE_REQUIRED: "Role is required",
     USERNAME_REQUIRED: "Username is required",
   },
 };

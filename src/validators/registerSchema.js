@@ -12,6 +12,7 @@ export const createRegisterSchema = (v) => {
     PASSWORD_NUMBER,
     PASSWORD_SPECIAL,
     PASSWORD_REQUIRED,
+    ROLE_REQUIRED,
   } = v;
 
   return Yup.object({
@@ -28,5 +29,7 @@ export const createRegisterSchema = (v) => {
       .matches(/\d/, PASSWORD_NUMBER)
       .matches(/[@$!%*?&]/, PASSWORD_SPECIAL)
       .required(PASSWORD_REQUIRED),
+
+    role: Yup.string().required(ROLE_REQUIRED),
   });
 };

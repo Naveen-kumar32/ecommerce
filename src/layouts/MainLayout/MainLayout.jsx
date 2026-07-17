@@ -1,22 +1,35 @@
 // Third-party
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 
+// Store
+import { clearCredentials, selectUserRole, selectUsername } from "../../store/authSlice";
+
 // Constants / Locales
+import { getUserRoleLabel } from "../../constants/userRoles";
+import en from "../../locales/en";
 import ROUTES from "../../locales/routes";
 
 // Styles
 import "./MainLayout.css";
 
 const MainLayout = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { LOGIN } = ROUTES;
+  const { HOME } = ROUTES;
+  const {
+    COMMON: { LOGOUT },
+    MAIN_LAYOUT: { APP_NAME, FALLBACK_USERNAME },
+    ROLES,
+  } = en;
 
-  const username = localStorage.getItem("username") ?? "User";
+  const username = useSelector(selectUsername) || FALLBACK_USERNAME;
+  const role = useSelector(selectUserRole);
+  const roleLabel = getUserRoleLabel(role, ROLES);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    navigate(LOGIN);
+    dispatch(clearCredentials());
+    navigate(HOME);
   };
 
   return (
@@ -24,13 +37,16 @@ const MainLayout = () => {
 
       <header className="main-header">
         <div className="header-logo">
-          React Project
+          {APP_NAME}
         </div>
 
         <div className="header-right">
-          <span className="header-username">{username}</span>
+          <span className="header-username">
+            {username}
+            {role ? ` (${roleLabel})` : ""}
+          </span>
           <button className="logout-btn" onClick={handleLogout}>
-            Logout
+            {LOGOUT}
           </button>
         </div>
       </header>

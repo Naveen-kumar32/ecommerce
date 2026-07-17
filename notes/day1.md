@@ -108,3 +108,106 @@ Folder layout inside `src/`:
   4. Styles / images / data
 Formik
 
+---
+
+## 10. Axios Interceptors
+
+- Axios interceptors run before a request leaves the app or after a response comes back.
+- Request interceptor:
+  ```js
+  axiosInstance.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  });
+  ```
+- Response interceptor:
+  - catches global API errors
+  - can log out the user on `401 Unauthorized`
+  - avoids repeating the same token logic in every API file
+
+---
+
+## 11. Redux Auth Storage
+
+- Redux keeps login credentials in one central store:
+  - `token`
+  - `username`
+  - `email`
+  - `role`
+- Components read auth data with selectors instead of reading `localStorage` directly.
+- The store can still persist auth data to `localStorage` so refresh does not immediately log the user out.
+- Main flow:
+  ```js
+  dispatch(setCredentials(response));
+  dispatch(clearCredentials());
+  ```
+
+---
+
+## 12. Role-Based Auth
+
+- Registration now stores a user role such as:
+  - `customer`
+  - `sales`
+  - `support`
+  - `admin`
+- Login can send the selected role, but the backend verifies it against the saved account role.
+- Never trust the role only from the frontend dropdown.
+- JWT token payload includes the role so protected APIs can know what kind of user is logged in.
+
+---
+
+## 13. Role-Based Routing
+
+- Admin users redirect to:
+  ```txt
+  /admin
+  ```
+- Customer, sales, and support users redirect to:
+  ```txt
+  /dashboard
+  ```
+- `ProtectedRoute` checks:
+  - user is logged in
+  - required role matches when a page is admin-only
+- Admin dashboard and normal dashboard are separate components, so admins do not see the same buying/product dashboard as customers.
+
+---
+
+## 14. PostgreSQL Auth Mode
+
+- `VITE_AUTH_MODE=api` uses the FastAPI backend instead of local demo users.
+- Signup data is stored in PostgreSQL in the `users` table.
+- The backend database URL is stored in:
+  ```txt
+  backend/.env
+  ```
+- Current local DB URL:
+  ```txt
+  postgresql://postgres@localhost:5433/reactproject
+  ```
+- SQLAlchemy creates the table from `backend/models/user.py`.
+- Passwords are not stored as plain text in PostgreSQL; the backend stores `hashed_password`.
+- After successful login, only the active session is stored in Redux.
+
+---
+
+## 15. Local Auth Mode
+
+- `VITE_AUTH_MODE=local` skips the backend login request and checks users from `src/data/users.js`.
+- Demo credentials live in:
+  ```txt
+  src/data/users.js
+  ```
+- After login, the active session is stored in Redux:
+  ```js
+  dispatch(setCredentials(response));
+  ```
+- Redux persists the active session to browser `localStorage` using:
+  ```txt
+  authCredentials
+  ```
+- Newly registered local users cannot be written back to source files from the browser, so they are saved in browser `localStorage` using:
+  ```txt
+  localUsers
+  ```
