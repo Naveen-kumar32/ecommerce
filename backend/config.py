@@ -28,3 +28,5 @@ ADMIN_IDENTIFIERS: list[str] = [
     for value in parse_csv_env("ADMIN_IDENTIFIERS", "admin,admin@example.com")
 ]
 DEFAULT_USER_ROLE: str = os.getenv("DEFAULT_USER_ROLE", "customer").lower()
+RAZORPAY_KEY_ID: str = os.getenv("RAZORPAY_KEY_ID", "")
+RAZORPAY_KEY_SECRET: str = os.getenv("RAZORPAY_KEY_SECRET", "")

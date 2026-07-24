@@ -1,0 +1,15 @@
+.empty-state {
+  display: grid;
+  gap: 10px;
+  padding: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.empty-state a {
+  color: #6366f1;
+  font-weight: 700;
+  text-decoration: none;
+}

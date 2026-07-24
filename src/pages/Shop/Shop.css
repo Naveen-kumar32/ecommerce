@@ -1,0 +1,39 @@
+.shop-page-body {
+  flex: 1;
+  display: grid;
+  gap: 22px;
+  padding: 34px;
+  text-align: left;
+}
+
+.shop-page-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.shop-page-filters input,
+.shop-page-filters select {
+  padding: 10px 12px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 14px;
+}
+
+.shop-page-filters input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.shop-page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+@media (max-width: 760px) {
+  .shop-page-body {
+    padding: 18px;
+  }
+}

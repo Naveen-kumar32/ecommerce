@@ -211,3 +211,100 @@ Formik
   ```txt
   localUsers
   ```
+
+---
+
+## 16. Extending an Existing Backend Without Breaking It
+
+- New DB tables = new files under `backend/models/`, one model per file, same shape as the existing `models/user.py`
+- `main.py` has to explicitly import every new model module so `Base.metadata.create_all` picks it up:
+  ```python
+  from models import product as product_model  # noqa: F401 — registers Product model with Base
+  ```
+- New routers get added the same way — `app.include_router(catalog.router)` — never edit the old router files, just add new ones and wire them in
+
+---
+
+## 17. Shared Auth Dependency (`deps.py`)
+
+- Every protected route needs the current user — instead of repeating JWT-decode logic in each router, write it once:
+  ```python
+  def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User: ...
+  def require_roles(*roles: str):
+      def dependency(user: User = Depends(get_current_user)) -> User:
+          if user.role not in roles:
+              raise HTTPException(status_code=403, ...)
+          return user
+      return dependency
+  ```
+- Usage: `Depends(require_roles("admin", "seller"))` — reads like a sentence at the route definition
+
+---
+
+## 18. Storing Images Directly in Postgres
+
+- For a small catalog it's fine to skip disk/cloud storage — add a `LargeBinary` column and store raw bytes
+- Frontend sends the image as a base64 **data URL** (`FileReader.readAsDataURL`), backend parses it:
+  ```python
+  DATA_URL_RE = re.compile(r"^data:(?P<mime>[\w/.+-]+);base64,(?P<data>.+)$")
+  ```
+- Serving it back is just a raw `Response`, not JSON:
+  ```python
+  return Response(content=product.image_data, media_type=product.image_mime_type)
+  ```
+
+---
+
+## 19. Mocking External Services (Payment / Email)
+
+- When there are no real API keys yet, isolate the fake behavior in its own service file so it's a one-file swap later — don't scatter mock logic across routers
+- `services/payment_gateway.py`: `create_order()` then `verify_payment()` as two separate calls, even though both are fake — matches how the real Razorpay flow works, so nothing else has to change when real keys arrive
+- `services/email_service.py`: logs the invoice instead of sending it — same idea
+
+---
+
+## 20. Ownership-Based Authorization
+
+- Instead of special-casing "admin can edit anything, seller can only edit their own," give every row a `created_by` and check `product.created_by == current_user.id` for **everyone**, admin included
+- One rule, no branching per role — simpler and harder to get wrong
+
+---
+
+## 21. Redux Circular Import Bug (real bug hit this session)
+
+- `store/index.js` imports every slice → if a slice imports an API file → which imports `axiosInstance` → which imports `{ store }` from `store/index.js`, that's a cycle
+- Symptom: `Cannot access 'xReducer' before initialization` — crashes the whole app on load
+- Fix: **never import the API layer inside a slice file.** Keep slices to reducers/actions only; do the API call in the component and dispatch the plain action with the result:
+  ```js
+  // bad: inside cartSlice.js
+  export const refreshCartCount = createAsyncThunk("cart/refresh", () => getCart());
+
+  // good: inside the component
+  const cart = await addToCart(productId, 1);
+  dispatch(setCartCount(cart.total_count));
+  ```
+
+---
+
+## 22. Adding a Third Role to Existing Role-Based Routing
+
+- `USER_ROLES` object and `createUserRoleOptions()` were already data-driven, so adding `SELLER: "seller"` there was enough to make it show up in the login/register role dropdowns automatically — no dropdown JSX to touch
+- `ProtectedRoute requiredRole={...}` pattern just needed one more wrapped route block for `/seller`
+- `authRedirect.js`'s `getDashboardRouteForRole()` needed one more `if` branch — same pattern as the existing admin check, just extended
+
+---
+
+## 23. End-to-End Testing With Playwright (no dev browser available)
+
+- In a headless/sandboxed environment there's no real browser to click around in — `npx playwright install chromium` gets a real one, then drive it with a plain script:
+  ```js
+  const { chromium } = require("playwright");
+  const browser = await chromium.launch({ args: ["--no-sandbox"] });
+  const page = await browser.newPage();
+  await page.goto(url);
+  await page.fill('input[name="identifier"]', "admin_demo");
+  await page.click('button[type="submit"]');
+  await page.waitForURL(/\/admin$/);
+  await page.screenshot({ path: "out.png" });
+  ```
+- Screenshots + `console --errors`-style listening (`page.on("console", ...)`) catch real render/runtime bugs that lint and build alone miss

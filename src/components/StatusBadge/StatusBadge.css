@@ -1,0 +1,22 @@
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #4338ca;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.status-badge-delivered,
+.status-badge-confirmed {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.status-badge-cancelled,
+.status-badge-refunded,
+.status-badge-returned {
+  background: #fef2f2;
+  color: #b91c1c;
+}

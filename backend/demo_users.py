@@ -59,4 +59,10 @@ DEMO_USERS = [
         "role": "admin",
         "username": "manager_demo",
     },
+    {
+        "email": "seller1@shopease.test",
+        "password": "Password@123",
+        "role": "seller",
+        "username": "seller_one",
+    },
 ]

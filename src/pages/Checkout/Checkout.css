@@ -1,0 +1,138 @@
+.checkout-page-body {
+  flex: 1;
+  display: grid;
+  gap: 18px;
+  padding: 34px;
+  max-width: 640px;
+  text-align: left;
+}
+
+.checkout-page-panel {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.checkout-page-panel h2 {
+  margin: 0;
+  font-size: 17px;
+  color: #111827;
+}
+
+.checkout-page-note {
+  margin: -4px 0 0;
+  font-size: 12.5px;
+  color: #6b7280;
+}
+
+.checkout-page-options {
+  display: grid;
+  gap: 8px;
+}
+
+.checkout-page-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: #374151;
+}
+
+.checkout-page-form {
+  display: grid;
+  gap: 10px;
+  max-width: 360px;
+}
+
+.checkout-page-form input {
+  padding: 10px 12px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 14px;
+}
+
+.checkout-page-payment-type {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.checkout-page-payment-type label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.checkout-page-form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.checkout-page-form-actions button,
+.checkout-page-add-btn {
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.checkout-page-form-actions button[type="submit"] {
+  background: #6366f1;
+  color: #ffffff;
+  border-color: #6366f1;
+}
+
+.checkout-page-summary-items {
+  display: grid;
+  gap: 6px;
+}
+
+.checkout-page-summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #374151;
+}
+
+.checkout-page-total {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 16px;
+}
+
+.checkout-page-total strong {
+  font-size: 20px;
+  color: #111827;
+}
+
+.checkout-page-pay-btn {
+  min-height: 48px;
+  border: none;
+  border-radius: 8px;
+  background: #6366f1;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.checkout-page-pay-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

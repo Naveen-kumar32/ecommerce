@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import heroImage from "../../assets/hero.png";
 
 // Constants / Locales
-import { getUserRoleLabel } from "../../constants/userRoles";
+import { getUserRoleLabel, USER_ROLES } from "../../constants/userRoles";
 import en from "../../locales/en";
 import ROUTES from "../../locales/routes";
 
@@ -19,7 +19,7 @@ import "./Home.css";
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { ADMIN_DASHBOARD, DASHBOARD, HOME: HOME_ROUTE, LOGIN, REGISTER } = ROUTES;
+  const { ADMIN_DASHBOARD, DASHBOARD, HOME: HOME_ROUTE, LOGIN, REGISTER, SELLER_DASHBOARD } = ROUTES;
   const {
     COMMON: { LOGOUT },
     HOME: {
@@ -82,7 +82,12 @@ const Home = () => {
                   {ADMIN_BUTTON}
                 </Link>
               )}
-              {!isAdmin && (
+              {!isAdmin && role === USER_ROLES.SELLER && (
+                <Link className="shop-btn shop-btn-primary" to={SELLER_DASHBOARD}>
+                  {DASHBOARD_BUTTON}
+                </Link>
+              )}
+              {!isAdmin && role !== USER_ROLES.SELLER && (
                 <Link className="shop-btn shop-btn-primary" to={DASHBOARD}>
                   {DASHBOARD_BUTTON}
                 </Link>

@@ -1,11 +1,16 @@
 // Third-party
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
+// Components
+import { PageHeader, StatCard } from "../../components";
 
 // Store
 import { selectUserEmail, selectUsername } from "../../store/authSlice";
 
 // Constants / Locales
 import en from "../../locales/en";
+import ROUTES from "../../locales/routes";
 
 // Styles
 import "./AdminDashboard.css";
@@ -24,30 +29,32 @@ const AdminDashboard = () => {
       SUBTITLE,
       WELCOME,
     },
+    ADMIN_ORDERS: { TITLE: ORDERS_TITLE },
+    ADMIN_PRODUCTS: { TITLE: PRODUCTS_TITLE },
   } = en;
 
   return (
     <div className="admin-dashboard-body">
-      <section className="admin-hero">
-        <div>
-          <span className="admin-kicker">{KICKER}</span>
-          <h1 className="admin-welcome">
-            {WELCOME}{username ? `, ${username}` : ""}
-          </h1>
-          <p className="admin-sub">{SUBTITLE}</p>
-        </div>
-        <div className="admin-profile">
-          <span>{PROFILE_LABEL}</span>
-          <strong>{email || username}</strong>
-        </div>
+      <PageHeader
+        kicker={KICKER}
+        title={`${WELCOME}${username ? `, ${username}` : ""}`}
+        subtitle={SUBTITLE}
+        actions={(
+          <div className="admin-profile">
+            <span>{PROFILE_LABEL}</span>
+            <strong>{email || username}</strong>
+          </div>
+        )}
+      />
+
+      <section className="admin-quick-links">
+        <Link className="admin-manage-link" to={ROUTES.ADMIN_PRODUCTS}>{PRODUCTS_TITLE}</Link>
+        <Link className="admin-manage-link" to={ROUTES.ADMIN_ORDERS}>{ORDERS_TITLE}</Link>
       </section>
 
       <section className="admin-stats" aria-label={ARIA_STORE_OVERVIEW}>
         {STATS.map((stat) => (
-          <article className="admin-stat-card" key={stat.label}>
-            <span>{stat.label}</span>
-            <strong>{stat.value}</strong>
-          </article>
+          <StatCard key={stat.label} label={stat.label} value={stat.value} />
         ))}
       </section>
 

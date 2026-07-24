@@ -20,8 +20,28 @@ const Login = lazy(() => import("../pages/Login/Login"));
 const Register = lazy(() => import("../pages/Register/Register"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const AdminDashboard = lazy(() => import("../pages/AdminDashboard/AdminDashboard"));
+const AdminOrders = lazy(() => import("../pages/AdminOrders/AdminOrders"));
+const AdminProducts = lazy(() => import("../pages/AdminProducts/AdminProducts"));
+const Cart = lazy(() => import("../pages/Cart/Cart"));
+const Checkout = lazy(() => import("../pages/Checkout/Checkout"));
+const Orders = lazy(() => import("../pages/Orders/Orders"));
+const SellerDashboard = lazy(() => import("../pages/SellerDashboard/SellerDashboard"));
+const Shop = lazy(() => import("../pages/Shop/Shop"));
 
-const { ADMIN_DASHBOARD, DASHBOARD, HOME, LOGIN, REGISTER } = ROUTES;
+const {
+  ADMIN_DASHBOARD,
+  ADMIN_ORDERS,
+  ADMIN_PRODUCTS,
+  CART,
+  CHECKOUT,
+  DASHBOARD,
+  HOME,
+  LOGIN,
+  ORDERS,
+  REGISTER,
+  SELLER_DASHBOARD,
+  SHOP,
+} = ROUTES;
 
 const router = createBrowserRouter([
   { path: HOME, element: <Home /> },
@@ -40,6 +60,10 @@ const router = createBrowserRouter([
     ),
     children: [
       { path: DASHBOARD, element: <Dashboard /> },
+      { path: SHOP, element: <Shop /> },
+      { path: CART, element: <Cart /> },
+      { path: CHECKOUT, element: <Checkout /> },
+      { path: ORDERS, element: <Orders /> },
     ],
   },
   {
@@ -50,6 +74,18 @@ const router = createBrowserRouter([
     ),
     children: [
       { path: ADMIN_DASHBOARD, element: <AdminDashboard /> },
+      { path: ADMIN_PRODUCTS, element: <AdminProducts /> },
+      { path: ADMIN_ORDERS, element: <AdminOrders /> },
+    ],
+  },
+  {
+    element: (
+      <ProtectedRoute requiredRole={USER_ROLES.SELLER}>
+        <MainLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      { path: SELLER_DASHBOARD, element: <SellerDashboard /> },
     ],
   },
 ]);

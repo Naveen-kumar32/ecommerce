@@ -2,6 +2,9 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
+// Components
+import { PageHeader, StatCard } from "../../components";
+
 // Store
 import { selectAuth, selectIsAdmin } from "../../store/authSlice";
 
@@ -16,7 +19,7 @@ import ROUTES from "../../locales/routes";
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  const { ADMIN_DASHBOARD } = ROUTES;
+  const { ADMIN_DASHBOARD, SELLER_DASHBOARD } = ROUTES;
   const {
     DASHBOARD: {
       ACTIONS,
@@ -44,31 +47,22 @@ const Dashboard = () => {
     return <Navigate to={ADMIN_DASHBOARD} replace />;
   }
 
+  if (role === USER_ROLES.SELLER) {
+    return <Navigate to={SELLER_DASHBOARD} replace />;
+  }
+
   return (
     <div className="dashboard-body">
-      <section className="dashboard-hero">
-        <div>
-          <span className="dashboard-kicker">{CUSTOMER_KICKER}</span>
-          <h1 className="dashboard-welcome">
-            {WELCOME}{username ? `, ${username}` : ""}
-          </h1>
-          <p className="dashboard-sub">{SUBTITLE}</p>
-        </div>
-      </section>
+      <PageHeader
+        kicker={CUSTOMER_KICKER}
+        title={`${WELCOME}${username ? `, ${username}` : ""}`}
+        subtitle={SUBTITLE}
+      />
 
       <section className="dashboard-summary" aria-label={ARIA_ACCOUNT_OVERVIEW}>
-        <article>
-          <span>{EMAIL_LABEL}</span>
-          <strong>{email}</strong>
-        </article>
-        <article>
-          <span>{ROLE_LABEL}</span>
-          <strong>{roleLabel}</strong>
-        </article>
-        <article>
-          <span>{STATUS_LABEL}</span>
-          <strong>{STATUS_VALUE}</strong>
-        </article>
+        <StatCard label={EMAIL_LABEL} value={email} />
+        <StatCard label={ROLE_LABEL} value={roleLabel} />
+        <StatCard label={STATUS_LABEL} value={STATUS_VALUE} />
       </section>
 
       <section className="dashboard-grid">
